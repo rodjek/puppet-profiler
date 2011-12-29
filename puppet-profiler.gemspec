@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'puppet-profiler'
-  s.version = '0.0.1'
+  s.version = '0.0.2'
   s.homepage = 'https://github.com/rodjek/puppet-profiler/'
   s.summary = 'Find the slow resources in your Puppet manifests'
   s.description = 'Analyses your Puppet runs on a host and returns a list of
