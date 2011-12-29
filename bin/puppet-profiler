@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require 'optparse'
+require 'puppet-profiler'
+
+help = <<HELP
+Puppet-profiler
+
+Analyses your Puppet run on this host and returns a list of resources that are
+taking the longest time to apply.
+
+Basic Command Line Usage:
+  puppet-profiler [OPTIONS]
+
+Options:
+HELP
+
+options = {:number => 10}
+opts = OptionParser.new do |opts|
+  opts.banner = help
+
+  opts.on('-n' '--number NUMBER', 'Number of results to return') do |v|
+    options[:number] = v.to_i
+  end
+end
+
+begin
+  opts.parse!
+rescue OptionParser::InvalidOption
+  puts "puppet-profiler: #{$!.message}"
+  puts "puppet-profiler: try 'puppet-profiler --help' for more information"
+  exit 1
+end
+
+PuppetProfiler.run(options[:number])
