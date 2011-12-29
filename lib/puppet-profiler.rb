@@ -4,10 +4,10 @@ class PuppetProfiler
 
     times = []
     resources = output.select { |line| 
-      line =~ /.+: Evaluated in [\d\.]+ seconds$/
+      line =~ /.+: E?valuated in [\d\.]+ seconds$/
     }.each { |line|
       res_line, junk, eval_line = line.rpartition(':')
-      if eval_line =~ / Evaluated in ([\d\.]+) seconds$/
+      if eval_line =~ / E?valuated in ([\d\.]+) seconds$/
         time = $1.to_f
       end
       junk, junk, res_line = res_line.partition(':')
