@@ -1,6 +1,6 @@
 class PuppetProfiler
   def self.run(num_res, cmd)
-    cmd = cmd + " --evaltrace --color=false"
+    cmd = cmd + " --verbose --evaltrace --color=false"
     output = `#{cmd}`.split("\n")
 
     times = []
