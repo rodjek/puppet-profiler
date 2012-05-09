@@ -1,6 +1,7 @@
 class PuppetProfiler
-  def self.run(num_res)
-    output = `puppet agent --test --evaltrace --color=false`.split("\n")
+  def self.run(num_res, cmd)
+    cmd = cmd + " --evaltrace --color=false"
+    output = `#{cmd}`.split("\n")
 
     times = []
     resources = output.select { |line| 
