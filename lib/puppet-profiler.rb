@@ -3,19 +3,13 @@ class PuppetProfiler
     output = `puppet agent --test --evaltrace --color=false`.split("\n")
 
     times = []
-    resources = output.select { |line| 
-      line =~ /.+: E?valuated in [\d\.]+ seconds$/
-    }.each { |line|
-      res_line, junk, eval_line = line.rpartition(':')
-      if eval_line =~ / E?valuated in ([\d\.]+) seconds$/
-        time = $1.to_f
-      end
-      junk, junk, res_line = res_line.partition(':')
-      if res_line =~ /.*([A-Z][^\[]+)\[(.+?)\]$/
+    output.each { |line|
+      if line =~ /info: .*([A-Z][^\[]+)\[(.+?)\]: Evaluated in ([\d\.]+) seconds$/
         type = $1
         title = $2
+        time = $3.to_f
+        times << [type, title, time]
       end
-      times << [type, title, time]
     }
 
     puts "Top #{num_res} Puppet resources by runtime"
