@@ -17,12 +17,16 @@ Basic Command Line Usage:
 Options:
 HELP
 
-options = {:number => 10}
+options = {:number => 10, :command => "puppet agent --test"}
 opts = OptionParser.new do |opts|
   opts.banner = help
 
-  opts.on('-n' '--number NUMBER', 'Number of results to return') do |v|
+  opts.on('-n', '--number NUMBER', "Number of results to return (default #{options[:number]})") do |v|
     options[:number] = v.to_i
+  end
+
+  opts.on('-c', '--command COMMAND', "Command to execute (default #{options[:command]})") do |v|
+    options[:command] = v.to_s
   end
 end
 
@@ -34,4 +38,4 @@ rescue OptionParser::InvalidOption
   exit 1
 end
 
-PuppetProfiler.run(options[:number])
+PuppetProfiler.run(options[:number], options[:command])
