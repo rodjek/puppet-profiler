@@ -5,7 +5,7 @@ class PuppetProfiler
 
     times = []
     output.each { |line|
-      if line =~ /info: .*([A-Z][^\[]+)\[(.+?)\]: Evaluated in ([\d\.]+) seconds$/
+      if line =~ /info: .*([A-Z][^\[]+)\[(.+?)\]: Evaluated in ([\d\.]+) seconds$/i
         type = $1
         title = $2
         time = $3.to_f
